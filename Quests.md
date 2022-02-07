@@ -39,3 +39,29 @@ a script allows a user to read information on the blockchain while a transaction
 ### Check that your variable is actually equals "the best" by executing a script to read that variable. Include a screenshot of the output.
 
 ![First Smart Contract](First-Smart-Contract.png)
+
+# Ch2 Day 2
+
+## 1.) Explain why we wouldn't call changeGreeting in a script.
+
+changeGreeting changes the state of the greeting variable in the smart contract. Scripts do not change the state of variables in smart contracts, this functionality is exclusive to transactions.
+
+## 2.) What does the AuthAccount mean in the prepare phase of the transaction?
+
+the AuthAccount is the parameter taken into the prepare phase of the transaction. This AuthAccount approves the transaction ("signs it") and pays the gas fees to execute the transaction.
+
+## 3.) What is the difference between the prepare phase and the execute phase in the transaction?
+
+the prepare phase access the data in the account, like a gatekeeper to approve the manipulation of resources. The execute phase can not access data in the account, but it can call functions to actually do the manipulation of the data on the blockchain, after everything checks out in the prepare phase.
+
+## 4.) Add two new things inside your contract:
+
+    1.) A variable named myNumber that has type Int (set it to 0 when the contract is deployed)
+
+    2.) A function named updateMyNumber that takes in a new number named newNumber as a parameter that has type Int and updates myNumber to be newNumber
+
+    Add a script that reads myNumber from the contract
+
+    Add a transaction that takes in a parameter named myNewNumber and passes it into the updateMyNumber function. Verify that your number changed by running the script again.
+
+![First Transaction](First-Transaction.png)
