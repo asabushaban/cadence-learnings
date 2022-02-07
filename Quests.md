@@ -10,7 +10,7 @@ a smart contract is logic deployed to the blockchain that allows users to change
 
 ## Explain the difference between a script and a transaction.
 
-a script allows a user to read information on of the blockchain while a transaction allows users to create, update, or delete information on the blockchain. A transaction typically has fees associated with its execution in the form of the blockchains native token. These "gas fees" serve as an incentive to the validators who mantain the integrity of the network.
+a script allows a user to read information on the blockchain while a transaction allows users to create, update, or delete information on the blockchain. A transaction typically has fees associated with its execution in the form of the blockchains native token. These "gas fees" serve as an incentive to the validators who mantain the integrity of the network.
 
 # Ch1 Day 2
 
@@ -31,3 +31,11 @@ a script allows a user to read information on of the blockchain while a transact
     Approachability allows for devs to quickly pickup on a language. Shortening the learning process allows removes a barrier to entry and allows for a growing community, in hopes to make the project a standard.
 
     Dev Exp: Devs like easy to debug and understand languages. A balance of control, yet not too much typing is always ideal.
+
+# Ch2 Day 1
+
+### Deploy a contract to account 0x03 called "JacobTucker". Inside that contract, declare a constant variable named is, and make it have type String. Initialize it to "the best" when your contract gets deployed.
+
+### Check that your variable is actually equals "the best" by executing a script to read that variable. Include a screenshot of the output.
+
+![First Smart Contract](First-Smart-Contract.png)
