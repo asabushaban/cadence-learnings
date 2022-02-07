@@ -56,13 +56,13 @@ the prepare phase access the data in the account, like a gatekeeper to approve t
 
 ## 4.) Add two new things inside your contract:
 
-    1.) A variable named myNumber that has type Int (set it to 0 when the contract is deployed)
+- 1.) A variable named myNumber that has type Int (set it to 0 when the contract is deployed)
 
-    2.) A function named updateMyNumber that takes in a new number named newNumber as a parameter that has type Int and updates myNumber to be newNumber
+- 2.) A function named updateMyNumber that takes in a new number named newNumber as a parameter that has type Int and updates myNumber to be newNumber
 
-    Add a script that reads myNumber from the contract
+  - Add a script that reads myNumber from the contract
 
-    Add a transaction that takes in a parameter named myNewNumber and passes it into the updateMyNumber function. Verify that your number changed by running the script again.
+  - Add a transaction that takes in a parameter named myNewNumber and passes it into the updateMyNumber function. Verify that your number changed by running the script again.
 
 ![First Transaction](First-Transaction.png)
 
@@ -91,3 +91,62 @@ the force unwrap operator changes the type from a type optional (ex Bool?) to ju
 - How to fix it
 
   - the way to fix this, is to force unwrap the return value by adding the force unwrap operator "thing[0x03]!"
+
+# Ch2 Day 4 - Basic Structs
+
+## Typo Alert! #5 on Real example inititialize a dictionary - not an array :)
+
+1.  Deploy a new contract that has a Struct of your choosing inside of it (must be different than Profile).
+
+2.  Create a dictionary or array that contains the Struct you defined.
+
+3.  Create a function to add to that array/dictionary.
+
+        access(all) contract Dealership {
+
+            pub var cars: {Address: Car}
+
+            pub struct Car {
+                pub let make: String
+                pub let model: String
+                pub let year: String
+                pub let account: Address
+
+                init(_make: String, _model: String, _year: String, _account: Address){
+                self.make = _make
+                self.model = _model
+                self.year = _year
+                self.account = _account
+                }
+
+            }
+
+            pub fun addCar(make: String, model: String, year: String, account: Address){
+                let newCar = Car(_make:make, _model:model, _year:year, _account:account)
+                self.cars[account] = newCar
+            }
+
+            init() {
+                self.cars = {}
+            }
+        }
+
+4.  Add a transaction to call that function in step 3.
+
+        import Dealership from 0x02
+
+        transaction(make: String, model: String, year: String, account: Address) {
+            prepare(signer: AuthAccount) {}
+
+            execute {
+            Dealership.addCar(make: make, model: model, year: year, account: account)
+            }
+        }
+
+5.  Add a script to read the Struct you defined.
+
+        import Dealership from 0x02
+
+        pub fun main(account: Address): Dealership.Car {
+            return Dealership.cars[account]!
+        }
