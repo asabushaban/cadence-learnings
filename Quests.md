@@ -65,3 +65,29 @@ the prepare phase access the data in the account, like a gatekeeper to approve t
     Add a transaction that takes in a parameter named myNewNumber and passes it into the updateMyNumber function. Verify that your number changed by running the script again.
 
 ![First Transaction](First-Transaction.png)
+
+# Ch2 Day 3 - Arrays, Dictionaries, and Optionals
+
+### 1) In a script, initialize an array (that has length == 3) of your favourite people, represented as Strings, and log it.
+
+### 2) In a script, initialize a dictionary that maps the Strings Facebook, Instagram, Twitter, YouTube, Reddit, and LinkedIn to a UInt64 that represents the order in which you use them from most to least. For example, YouTube --> 1, Reddit --> 2, etc. If you've never used one before, map it to 0!
+
+![Array&Dict](Array&Dict.png)
+
+### 3) Explain what the force unwrap operator "!" does, with an example different from the one I showed you (you can just change the type).
+
+the force unwrap operator changes the type from a type optional (ex Bool?) to just the type (Bool)
+
+### 4) Using this picture below, explain...
+
+- What the error message means
+
+  - the error message means the compiler was expecting a type optional (String or nil) but got the type (String)
+
+- Why we're getting this error
+
+  - we're getting this error because the value of "thing[0x03]" is a String not a String optional which is the default value in dictionaries
+
+- How to fix it
+
+  - the way to fix this, is to force unwrap the return value by adding the force unwrap operator "thing[0x03]!"
