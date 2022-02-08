@@ -150,3 +150,45 @@ the force unwrap operator changes the type from a type optional (ex Bool?) to ju
         pub fun main(account: Address): Dealership.Car {
             return Dealership.cars[account]!
         }
+
+# Ch3 Day 1 - Intro to Resources
+
+1.  In words, list 3 reasons why structs are different from resources.
+
+    - Structs can be overwritten, copied, and created anytime. Resources can not be overwritten or copied and must be accounted for at all times.
+
+2.  Describe a situation where a resource might be better to use than a struct.
+
+    - An NFT is the perfect situation. To be more specific, the title of a car would be a good resource.
+
+3.  What is the keyword to make a new resource?
+
+    - Create
+
+4.  Can a resource be created in a script or transaction (assuming there isn't a public function to create one)?
+
+    - Definetly not a script because scripts can only view data. Transactions can create resources.
+
+5.  What is the type of the resource below?
+
+    - @Jacob
+
+6.  Let's play the "I Spy" game from when we were kids. I Spy 4 things wrong with this code. Please fix them.
+
+        pub contract Test {
+
+            pub resource Jacob {
+                pub let rocks: Bool
+                init() {
+                    self.rocks = true
+                }
+            }
+
+            pub fun createJacob(): @Jacob {
+                let myJacob <- create Jacob()
+                return <- myJacob
+            }
+
+        }
+
+# Ch 3 Day 2 - Resources in Dictionaries & Arrays
