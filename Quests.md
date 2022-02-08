@@ -1,96 +1,98 @@
-# Ch1 Day 1
+# Ch1 Day 1 - Learning Blockchain Concepts
 
-## Explain what the Blockchain is in your own words.
+1. Explain what the Blockchain is in your own words.
 
-a blockchain is a distributed network where information can be stored publicly. Users can interact with that information without restriction from centralized authorities. Blockchains typically have certain properties to protect users from scams and fordgery. Inheritly, blockchains allow for users to rely on distributed programming consensus (Math) instead of trusted (centralized) third parties, without compromosing security.
+   - A blockchain is a distributed network where information can be stored publicly. Users can interact with that information without restriction from centralized authorities. Blockchains typically have certain properties to protect users from scams and fordgery. Inheritly, blockchains allow for users to rely on distributed programming consensus (Math) instead of trusted (centralized) third parties, without compromosing security.
 
-## Explain what a Smart Contract is.
+2. Explain what a Smart Contract is.
 
-a smart contract is logic deployed to the blockchain that allows users to change the state of data stored on the blockchain.
+   - A smart contract is logic deployed to the blockchain that allows users to change the state of data stored on the blockchain.
 
-## Explain the difference between a script and a transaction.
+3. Explain the difference between a script and a transaction.
 
-a script allows a user to read information on the blockchain while a transaction allows users to create, update, or delete information on the blockchain. A transaction typically has fees associated with its execution in the form of the blockchains native token. These "gas fees" serve as an incentive to the validators who mantain the integrity of the network.
+   - A script allows a user to read information on the blockchain while a transaction allows users to create, update, or delete information on the blockchain. A transaction typically has fees associated with its execution in the form of the blockchains native token. These "gas fees" serve as an incentive to the validators who mantain the integrity of the network.
 
-# Ch1 Day 2
+# Ch1 Day 2 - The Flow Blockchain & Cadence
 
-## What are the 5 Cadence Programming Language Pillars?
+1. What are the 5 Cadence Programming Language Pillars?
 
-    Safety and Security
-    Clarity
-    Approachability
-    Developer Experience
-    Resource Oriented Programming
+   - Safety and Security
+   - Clarity
+   - Approachability
+   - Developer Experience
+   - Resource Oriented Programming
 
-## In your opinion, even without knowing anything about the Blockchain or coding, why could the 5 Pillars be useful (you don't have to answer this for #5)?
+#
 
-    Of course safety ad security are always top priority bc people value the rights and property.
+2. In your opinion, even without knowing anything about the Blockchain or coding, why could the 5 Pillars be useful (you don't have to answer this for #5)?
 
-    Clarity is important to allow other to easily understand and work on your code, code that only you understand limits the development of your code, because then only you can contribute.
+   - Of course safety ad security are always top priority bc people value their rights and property.
 
-    Approachability allows for devs to quickly pickup on a language. Shortening the learning process allows removes a barrier to entry and allows for a growing community, in hopes to make the project a standard.
+   - Clarity is important to allow other to easily understand and work on your code, code that only you understand limits the development of your code, because then only you can contribute.
 
-    Dev Exp: Devs like easy to debug and understand languages. A balance of control, yet not too much typing is always ideal.
+   - Approachability allows for devs to quickly pickup on a language. Shortening the learning process removes a barrier to entry and allows for a growing community, in hopes to make the project a standard.
 
-# Ch2 Day 1
+   - Dev Exp: Devs like easy to debug and understand languages. A balance of control, yet not too much typing is always ideal.
 
-### Deploy a contract to account 0x03 called "JacobTucker". Inside that contract, declare a constant variable named is, and make it have type String. Initialize it to "the best" when your contract gets deployed.
+# Ch2 Day 1 - Our First Smart Contract
 
-### Check that your variable is actually equals "the best" by executing a script to read that variable. Include a screenshot of the output.
+1. Deploy a contract to account 0x03 called "JacobTucker". Inside that contract, declare a constant variable named is, and make it have type String. Initialize it to "the best" when your contract gets deployed.
+
+2. Check that your variable is actually equals "the best" by executing a script to read that variable. Include a screenshot of the output.
 
 ![First Smart Contract](First-Smart-Contract.png)
 
-# Ch2 Day 2
+# Ch2 Day 2 - Transactions and Scripts
 
-## 1.) Explain why we wouldn't call changeGreeting in a script.
+1. Explain why we wouldn't call changeGreeting in a script.
 
-changeGreeting changes the state of the greeting variable in the smart contract. Scripts do not change the state of variables in smart contracts, this functionality is exclusive to transactions.
+   - changeGreeting changes the state of the greeting variable in the smart contract. Scripts do not change the state of variables in smart contracts, this functionality is exclusive to transactions.
 
-## 2.) What does the AuthAccount mean in the prepare phase of the transaction?
+2. What does the AuthAccount mean in the prepare phase of the transaction?
 
-the AuthAccount is the parameter taken into the prepare phase of the transaction. This AuthAccount approves the transaction ("signs it") and pays the gas fees to execute the transaction.
+   - The AuthAccount is the parameter taken into the prepare phase of the transaction. This AuthAccount approves the transaction ("signs it") and pays the gas fees to execute the transaction.
 
-## 3.) What is the difference between the prepare phase and the execute phase in the transaction?
+3. What is the difference between the prepare phase and the execute phase in the transaction?
 
-the prepare phase access the data in the account, like a gatekeeper to approve the manipulation of resources. The execute phase can not access data in the account, but it can call functions to actually do the manipulation of the data on the blockchain, after everything checks out in the prepare phase.
+   - The prepare phase accesses the data in the account, like a gatekeeper to approve the manipulation of information. The execute phase can not access data in the account, but it can call functions to actually do the manipulation of the data on the blockchain, after everything checks out in the prepare phase.
 
-## 4.) Add two new things inside your contract:
+4. Add two new things inside your contract:
 
-- 1.) A variable named myNumber that has type Int (set it to 0 when the contract is deployed)
+   1. A variable named myNumber that has type Int (set it to 0 when the contract is deployed)
 
-- 2.) A function named updateMyNumber that takes in a new number named newNumber as a parameter that has type Int and updates myNumber to be newNumber
+   2. A function named updateMyNumber that takes in a new number named newNumber as a parameter that has type Int and updates myNumber to be newNumber
 
-  - Add a script that reads myNumber from the contract
+   3. Add a script that reads myNumber from the contract
 
-  - Add a transaction that takes in a parameter named myNewNumber and passes it into the updateMyNumber function. Verify that your number changed by running the script again.
+   4. Add a transaction that takes in a parameter named myNewNumber and passes it into the updateMyNumber function. Verify that your number changed by running the script again.
 
 ![First Transaction](First-Transaction.png)
 
 # Ch2 Day 3 - Arrays, Dictionaries, and Optionals
 
-### 1) In a script, initialize an array (that has length == 3) of your favourite people, represented as Strings, and log it.
+1. In a script, initialize an array (that has length == 3) of your favourite people, represented as Strings, and log it.
 
-### 2) In a script, initialize a dictionary that maps the Strings Facebook, Instagram, Twitter, YouTube, Reddit, and LinkedIn to a UInt64 that represents the order in which you use them from most to least. For example, YouTube --> 1, Reddit --> 2, etc. If you've never used one before, map it to 0!
+2. In a script, initialize a dictionary that maps the Strings Facebook, Instagram, Twitter, YouTube, Reddit, and LinkedIn to a UInt64 that represents the order in which you use them from most to least. For example, YouTube --> 1, Reddit --> 2, etc. If you've never used one before, map it to 0!
 
 ![Array&Dict](Array&Dict.png)
 
-### 3) Explain what the force unwrap operator "!" does, with an example different from the one I showed you (you can just change the type).
+3. Explain what the force unwrap operator "!" does, with an example different from the one I showed you (you can just change the type).
 
-the force unwrap operator changes the type from a type optional (ex Bool?) to just the type (Bool)
+   - The force unwrap operator changes the type from a type optional (ex Bool?) to just the type (Bool)
 
-### 4) Using this picture below, explain...
+4. Using this picture below, explain...
 
 - What the error message means
 
-  - the error message means the compiler was expecting a type optional (String or nil) but got the type (String)
+  - The error message means the compiler was expecting a type optional (String or nil) but got the type (String)
 
 - Why we're getting this error
 
-  - we're getting this error because the value of "thing[0x03]" is a String not a String optional which is the default value in dictionaries
+  - We're getting this error because the value of "thing[0x03]" is a String not a String optional which is the default value in dictionaries
 
 - How to fix it
 
-  - the way to fix this, is to force unwrap the return value by adding the force unwrap operator "thing[0x03]!"
+  - The way to fix this, is to force unwrap the return value by adding the force unwrap operator "thing[0x03]!"
 
 # Ch2 Day 4 - Basic Structs
 
