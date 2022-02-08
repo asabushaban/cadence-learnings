@@ -192,3 +192,44 @@ the force unwrap operator changes the type from a type optional (ex Bool?) to ju
         }
 
 # Ch 3 Day 2 - Resources in Dictionaries & Arrays
+
+1.  Write your own smart contract that contains two state variables: an array of resources, and a dictionary of resources. Add functions to remove and add to each of them. They must be different from the examples above.
+
+        access(all) contract NbaStar {
+
+            pub var allStars : @[Player]
+            pub var allStarDict: @{String:Player}
+
+            pub resource Player{
+                pub let name: String
+                init(){
+                    self.name = "Luka"
+                }
+            }
+
+            //array logic
+            pub fun addAllStar(player: @Player){
+                self.allStars.append(<- player)
+            }
+
+            pub fun removeAllStar(index: Int): @Player {
+                return <- self.allStars.remove(at: index)
+            }
+
+            pub fun addAllStarDict(player: @Player){
+                let key = player.name
+                self.allStarDict[key] <-! player
+            }
+
+            //dict logic
+            pub fun removeAllStarDict(key: String): @Player {
+                let player <- self.allStarDict.remove(key: key)!
+                return <- player
+            }
+
+            init() {
+                self.allStars <- []
+                self.allStarDict <- {}
+            }
+
+        }
