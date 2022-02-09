@@ -169,7 +169,7 @@
 
 4.  Can a resource be created in a script or transaction (assuming there isn't a public function to create one)?
 
-    - Definetly not a script because scripts can only view data. Transactions can create resources.
+    - Definetly not a script because scripts can only view data. If there isn't a public function to create the resource, only the contract can create a resource with the create keyword.
 
 5.  What is the type of the resource below?
 
