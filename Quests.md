@@ -88,7 +88,7 @@
 
 - Why we're getting this error
 
-  - We're getting this error because the value of "thing[0x03]" is a String not a String optional which is the default value in dictionaries
+  - We're getting this error because the value of "thing[0x03]" is a String optional not a String. The return value needs a force unwrapper to provide the expected return value.
 
 - How to fix it
 
