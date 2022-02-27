@@ -142,3 +142,184 @@ pub contract interface NonFungibleToken {
         }
     }
 }
+
+
+// TopJockNFT
+
+// import NonFungibleToken from 0x02
+
+pub contract TopJockNFT: NonFungibleToken {
+
+    pub var totalSupply: UInt64
+
+    pub event ContractInitialized()
+
+    pub event Withdraw(id: UInt64, from: Address?)
+
+    pub event Deposit(id: UInt64, to: Address?)
+
+    pub resource NFT: NonFungibleToken.INFT {
+        pub let id: UInt64
+        pub let name: String
+
+        init(){
+            self.id = TopJockNFT.totalSupply
+            TopJockNFT.totalSupply = TopJockNFT.totalSupply + 1
+            self.name = "Amjad"
+        }
+    }
+
+    pub resource interface MyCollectionPublic{
+        pub fun deposit(token: @NonFungibleToken.NFT)
+        pub fun getIDs(): [UInt64]
+        pub fun borrowNFT(id: UInt64): &NonFungibleToken.NFT
+        pub fun borrowEntireNFT(id: UInt64): &NFT
+    }
+
+    pub resource Collection: NonFungibleToken.Provider, NonFungibleToken.Receiver, NonFungibleToken.CollectionPublic, MyCollectionPublic {
+        pub var ownedNFTs: @{UInt64: NonFungibleToken.NFT}
+
+        pub fun deposit(token: @NonFungibleToken.NFT){
+            let topJock <- token as! @NFT
+            emit Deposit(id: topJock.id, to: self.owner?.address)
+            self.ownedNFTs[topJock.id] <-! topJock
+
+        }
+
+        pub fun withdraw(withdrawID: UInt64): @NonFungibleToken.NFT{
+            let jock <- self.ownedNFTs.remove(key: withdrawID) ?? panic("This collection does not contain the NFT you're looking for.")
+
+            emit Withdraw(id:withdrawID, from:self.owner?.address)
+
+            return <- jock
+        }
+
+        pub fun getIDs(): [UInt64] {
+            return self.ownedNFTs.keys
+        }
+
+        pub fun borrowNFT(id: UInt64): &NonFungibleToken.NFT {
+            return &self.ownedNFTs[id] as &NonFungibleToken.NFT
+        }
+
+        pub fun borrowEntireNFT(id: UInt64): &NFT {
+            let refNFT = &self.ownedNFTs[id] as auth &NonFungibleToken.NFT
+            return refNFT as! &NFT
+        }
+
+        init(){
+            self.ownedNFTs <- {}
+        }
+
+        destroy(){
+            destroy self.ownedNFTs
+        }
+    }
+
+    pub fun createEmptyCollection(): @Collection {
+        return <- create Collection()
+    }
+
+    pub resource NFTMinter {
+
+        pub fun createNFT(): @NFT {
+            return <- create NFT()
+        }
+
+        init(){}
+    }
+
+    init() {
+        self.totalSupply = 0
+        emit ContractInitialized()
+        self.account.save(<- create NFTMinter(), to: /storage/Minter)
+    }
+}
+//Transactions
+
+// Create Collection
+// import TopJockNFT from 0x01
+// import NonFungibleToken from 0x02
+transaction {
+    prepare(account: AuthAccount) {
+        account.save(<-TopJockNFT.createEmptyCollection(), to: /storage/Collection)
+        account.link<&TopJockNFT.Collection{NonFungibleToken.CollectionPublic, TopJockNFT.MyCollectionPublic}>(/public/Collection, target: /storage/Collection)
+    }
+
+    execute {
+        log("stored a Collection for our Jocks")
+    }
+}
+
+// Deposit Jock
+// import TopJockNFT from 0x01
+// import NonFungibleToken from 0x02
+
+transaction(recipient: Address) {
+    prepare(account: AuthAccount) {
+        let nftMinter = account.borrow<&TopJockNFT.NFTMinter>(from: /storage/Minter)!
+
+        let publicReference = getAccount(recipient).getCapability(/public/Collection)
+                                .borrow<&TopJockNFT.Collection{NonFungibleToken.CollectionPublic}>()
+                                ?? panic("This account does not have a Collection")
+
+        publicReference.deposit(token: <- nftMinter.createNFT())
+    }
+
+    execute {
+        log("stored a newly minted Jock in your collection")
+    }
+}
+
+// Transfer NFT
+// import TopJockNFT from 0x01
+// import NonFungibleToken from 0x02
+
+// the receiver of the jock is the recipient (duh)
+transaction(recipient: Address, id:UInt64) {
+
+// the giver of the Jock is the account is signing
+    prepare(account: AuthAccount) {
+
+    let collection = account.borrow<&TopJockNFT.Collection>(from: /storage/Collection)!
+
+    let publicReference = getAccount(recipient).getCapability(/public/Collection)
+                            .borrow<&TopJockNFT.Collection{NonFungibleToken.CollectionPublic}>()
+                            ?? panic("This account does not have a Collection")
+
+    publicReference.deposit(token: <- collection.withdraw(withdrawID: id))
+    }
+
+    execute {
+    log("Jock transfered successfully ")
+    }
+}
+
+// Scripts
+
+// Read the IDs of the NFTs in a Collection for a certain account
+// import TopJockNFT from 0x01
+// import NonFungibleToken from 0x02
+
+
+pub fun main(account: Address): [UInt64] {
+    let publicReference = getAccount(account).getCapability(/public/Collection)
+                                .borrow<&TopJockNFT.Collection{NonFungibleToken.CollectionPublic}>()
+                                ?? panic("This account does not have a Collection")
+
+
+    return publicReference.getIDs()
+}
+
+// Read name
+// import TopJockNFT from 0x01
+// import NonFungibleToken from 0x02
+
+pub fun main(account: Address, id:UInt64): String {
+    let publicReference = getAccount(account).getCapability(/public/Collection)
+                                .borrow<&TopJockNFT.Collection{TopJockNFT.MyCollectionPublic}>()
+                                ?? panic("This account does not have a Collection")
+
+    return publicReference.borrowEntireNFT(id: id).name
+
+}
