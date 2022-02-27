@@ -96,8 +96,6 @@
 
 # Ch2 Day 4 - Basic Structs
 
-## Typo Alert! #5 on Real example inititialize a dictionary - not an array :)
-
 1.  Deploy a new contract that has a Struct of your choosing inside of it (must be different than Profile).
 
 2.  Create a dictionary or array that contains the Struct you defined.
