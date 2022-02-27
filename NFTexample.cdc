@@ -43,7 +43,7 @@ Collection to complete the transfer.
 
 // The main NFT contract interface. Other NFT contracts will
 // import and implement this interface
-//
+
 pub contract interface NonFungibleToken {
 
     // The total number of tokens of this type in existence
@@ -235,6 +235,8 @@ pub contract TopJockNFT: NonFungibleToken {
         self.account.save(<- create NFTMinter(), to: /storage/Minter)
     }
 }
+
+
 //Transactions
 
 // Create Collection
