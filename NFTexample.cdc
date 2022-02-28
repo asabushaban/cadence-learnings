@@ -160,12 +160,12 @@ pub contract TopJockNFT: NonFungibleToken {
 
     pub resource NFT: NonFungibleToken.INFT {
         pub let id: UInt64
-        pub let name: String
+        // pub let name: String
 
         init(){
             self.id = TopJockNFT.totalSupply
             TopJockNFT.totalSupply = TopJockNFT.totalSupply + 1
-            self.name = "Amjad"
+            // self.name = "Amjad"
         }
     }
 
@@ -188,9 +188,7 @@ pub contract TopJockNFT: NonFungibleToken {
 
         pub fun withdraw(withdrawID: UInt64): @NonFungibleToken.NFT{
             let jock <- self.ownedNFTs.remove(key: withdrawID) ?? panic("This collection does not contain the NFT you're looking for.")
-
             emit Withdraw(id:withdrawID, from:self.owner?.address)
-
             return <- jock
         }
 
@@ -317,11 +315,11 @@ pub fun main(account: Address): [UInt64] {
 // import TopJockNFT from 0x01
 // import NonFungibleToken from 0x02
 
-pub fun main(account: Address, id:UInt64): String {
-    let publicReference = getAccount(account).getCapability(/public/Collection)
-                                .borrow<&TopJockNFT.Collection{TopJockNFT.MyCollectionPublic}>()
-                                ?? panic("This account does not have a Collection")
+// pub fun main(account: Address, id:UInt64): String {
+//     let publicReference = getAccount(account).getCapability(/public/Collection)
+//                                 .borrow<&TopJockNFT.Collection{TopJockNFT.MyCollectionPublic}>()
+//                                 ?? panic("This account does not have a Collection")
 
-    return publicReference.borrowEntireNFT(id: id).name
+//     return publicReference.borrowEntireNFT(id: id).name
 
-}
+// }
