@@ -151,11 +151,8 @@ pub contract interface NonFungibleToken {
 pub contract TopJockNFT: NonFungibleToken {
 
     pub var totalSupply: UInt64
-
     pub event ContractInitialized()
-
     pub event Withdraw(id: UInt64, from: Address?)
-
     pub event Deposit(id: UInt64, to: Address?)
 
     pub resource NFT: NonFungibleToken.INFT {
@@ -183,7 +180,6 @@ pub contract TopJockNFT: NonFungibleToken {
             let topJock <- token as! @NFT
             emit Deposit(id: topJock.id, to: self.owner?.address)
             self.ownedNFTs[topJock.id] <-! topJock
-
         }
 
         pub fun withdraw(withdrawID: UInt64): @NonFungibleToken.NFT{
@@ -236,7 +232,6 @@ pub contract TopJockNFT: NonFungibleToken {
 
 
 //Transactions
-
 // Create Collection
 // import TopJockNFT from 0x01
 // import NonFungibleToken from 0x02
@@ -296,7 +291,6 @@ transaction(recipient: Address, id:UInt64) {
 }
 
 // Scripts
-
 // Read the IDs of the NFTs in a Collection for a certain account
 // import TopJockNFT from 0x01
 // import NonFungibleToken from 0x02
