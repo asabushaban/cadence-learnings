@@ -272,7 +272,6 @@ transaction(recipient: Address) {
 
 // the receiver of the jock is the recipient (duh)
 transaction(recipient: Address, id:UInt64) {
-
 // the giver of the Jock is the account is signing
     prepare(account: AuthAccount) {
 
