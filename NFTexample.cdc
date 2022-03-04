@@ -271,7 +271,7 @@ transaction(recipient: Address) {
 // import TopJockNFT from 0x01
 // import NonFungibleToken from 0x02
 
-// the receiver of the jock is the recipient (duh)
+// the receiver of the jock is the recipient
 transaction(recipient: Address, id:UInt64) {
 // the giver of the Jock is the account is signing
     prepare(account: AuthAccount) {
