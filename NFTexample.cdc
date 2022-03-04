@@ -267,6 +267,7 @@ transaction(recipient: Address) {
 }
 
 // Transfer NFT
+
 // import TopJockNFT from 0x01
 // import NonFungibleToken from 0x02
 
